@@ -3,6 +3,11 @@
 A full-stack decentralized governance system built using Solidity, Hardhat, and Next.js.
 
 ---
+##  Architecture Diagram
+
+![DAO Governance Architecture](docs/architecture.png)
+
+---
 
 #  Quick Start (Docker - One Command)
 
