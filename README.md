@@ -4,7 +4,7 @@ A full-stack decentralized governance system built using Solidity, Hardhat, and 
 
 ---
 
-# 🚀 Quick Start (Docker - One Command)
+#  Quick Start (Docker - One Command)
 
 ```bash
 docker-compose up --build
@@ -15,9 +15,9 @@ Frontend → http://localhost:3000
 
 ---
 
-# 🛠 Running Locally (Manual Setup)
+#  Running Locally (Manual Setup)
 
-## 1️⃣ Install Dependencies
+## 1️ Install Dependencies
 
 ```bash
 npm install
@@ -27,7 +27,7 @@ npm install
 
 ---
 
-## 2️⃣ Start Hardhat Node
+## 2️ Start Hardhat Node
 
 ```bash
 npx hardhat node
@@ -35,7 +35,7 @@ npx hardhat node
 
 ---
 
-## 3️⃣ Deploy Contracts
+## 3️ Deploy Contracts
 
 Open new terminal:
 
@@ -51,7 +51,7 @@ frontend/app/page.tsx
 
 ---
 
-## 4️⃣ Start Frontend
+## 4️ Start Frontend
 
 ```bash
 cd frontend
@@ -66,7 +66,7 @@ http://localhost:3000
 
 ---
 
-# 🧪 Run Tests
+#  Run Tests
 
 ```bash
 npx hardhat test
@@ -81,7 +81,7 @@ DAO Governance Full Flow
 
 ---
 
-# 📁 Project Structure
+#  Project Structure
 
 ```
 dao-governance-dapp/
@@ -100,7 +100,7 @@ dao-governance-dapp/
 
 ---
 
-# ⚙ Environment Variables
+#  Environment Variables
 
 Create `.env` from `.env.example`:
 
@@ -111,7 +111,7 @@ RPC_URL=http://localhost:8545
 
 ---
 
-# 🧠 Governance Flow
+#  Governance Flow
 
 1. Delegate voting power
 2. Create proposal
@@ -124,7 +124,7 @@ RPC_URL=http://localhost:8545
 
 ---
 
-# 🦊 MetaMask Setup
+#  MetaMask Setup
 
 Add Hardhat network:
 
@@ -134,7 +134,7 @@ Currency Symbol: ETH
 
 ---
 
-# 👩‍💻 Author
+#  Author
 
 Lahari Sri Kotipalli  
 GitHub: https://github.com/Laharisrikotipalli

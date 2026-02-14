@@ -1,24 +1,36 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ethers } from "ethers";
 import governorData from "./contracts/Governor.json";
 
-const GOVERNOR_ADDRESS = process.env.NEXT_PUBLIC_GOVERNOR_ADDRESS as string;
-
+const GOVERNOR_ADDRESS = "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0";
 
 export default function Home() {
-  const [account, setAccount] = useState<string>("");
+  const [account, setAccount] = useState("");
   const [governor, setGovernor] = useState<any>(null);
   const [proposals, setProposals] = useState<any[]>([]);
+  const [mounted, setMounted] = useState(false);
+
+  // Prevent SSR window errors
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
 
   const connectWallet = async () => {
-    if (!window.ethereum) {
+    if (typeof window === "undefined") return;
+
+    if (!(window as any).ethereum) {
       alert("Install MetaMask");
       return;
     }
 
-    const provider = new ethers.BrowserProvider(window.ethereum);
+    const provider = new ethers.BrowserProvider(
+      (window as any).ethereum
+    );
+
     await provider.send("eth_requestAccounts", []);
     const signer = await provider.getSigner();
     const address = await signer.getAddress();
@@ -35,7 +47,6 @@ export default function Home() {
     loadProposals(provider);
   };
 
-  // LOAD PROPOSALS
   const loadProposals = async (provider: any) => {
     const gov = new ethers.Contract(
       GOVERNOR_ADDRESS,
@@ -67,25 +78,18 @@ export default function Home() {
     setProposals(formatted);
   };
 
-  // VOTE FUNCTION
   const vote = async (proposalId: string, support: number) => {
     if (!governor) return;
 
-    try {
-      const tx = await governor.castVote(proposalId, support);
-      await tx.wait();
-      alert("Vote submitted!");
+    const tx = await governor.castVote(proposalId, support);
+    await tx.wait();
 
-      // reload proposals after voting
-      const provider = new ethers.BrowserProvider(window.ethereum);
-      loadProposals(provider);
-    } catch (error) {
-      console.error(error);
-      alert("Voting failed!");
-    }
+    const provider = new ethers.BrowserProvider(
+      (window as any).ethereum
+    );
+    loadProposals(provider);
   };
 
-  // STATE TEXT
   const getStateText = (state: number) => {
     const states = [
       "Pending",
@@ -101,105 +105,38 @@ export default function Home() {
   };
 
   return (
-    <div
-      style={{
-        padding: 40,
-        background: "white",
-        color: "black",
-        minHeight: "100vh",
-        fontFamily: "Arial",
-      }}
-    >
+    <div style={{ padding: 40 }}>
       <h1>DAO Governance DApp</h1>
 
       {!account ? (
-        <button
-          data-testid="connect-wallet-button"
-          onClick={connectWallet}
-          style={{
-            padding: 10,
-            background: "blue",
-            color: "white",
-            border: "none",
-            cursor: "pointer",
-          }}
-        >
+        <button onClick={connectWallet}>
           Connect Wallet
         </button>
       ) : (
-        <div>
-          <p data-testid="user-address">
-            <strong>Connected:</strong> {account}
-          </p>
-
-          <h2>Proposals</h2>
-
-          {proposals.length === 0 && <p>No proposals found</p>}
+        <>
+          <p>Connected: {account}</p>
 
           {proposals.map((p) => (
-            <div
-              key={p.id}
-              data-testid="proposal-list-item"
-              style={{
-                border: "1px solid black",
-                padding: 15,
-                marginTop: 15,
-                borderRadius: 6,
-              }}
-            >
-              <p><strong>ID:</strong> {p.id}</p>
-              <p><strong>Description:</strong> {p.description}</p>
-              <p><strong>State:</strong> {getStateText(p.state)}</p>
-
-              <p>For: {p.forVotes}</p>
-              <p>Against: {p.againstVotes}</p>
-              <p>Abstain: {p.abstainVotes}</p>
+            <div key={p.id} style={{ marginTop: 20 }}>
+              <p>{p.description}</p>
+              <p>State: {getStateText(p.state)}</p>
 
               {p.state === 1 && (
-                <div style={{ marginTop: 10, display: "flex", gap: 10 }}>
-                  <button
-                    style={{
-                      padding: 8,
-                      background: "green",
-                      color: "white",
-                      border: "none",
-                      cursor: "pointer",
-                    }}
-                    onClick={() => vote(p.id, 1)}
-                  >
+                <>
+                  <button onClick={() => vote(p.id, 1)}>
                     Vote For
                   </button>
-
-                  <button
-                    style={{
-                      padding: 8,
-                      background: "red",
-                      color: "white",
-                      border: "none",
-                      cursor: "pointer",
-                    }}
-                    onClick={() => vote(p.id, 0)}
-                  >
+                  <button onClick={() => vote(p.id, 0)}>
                     Vote Against
                   </button>
-
-                  <button
-                    style={{
-                      padding: 8,
-                      background: "gray",
-                      color: "white",
-                      border: "none",
-                      cursor: "pointer",
-                    }}
-                    onClick={() => vote(p.id, 2)}
-                  >
+                  <button onClick={() => vote(p.id, 2)}>
                     Abstain
                   </button>
-                </div>
+                </>
               )}
             </div>
           ))}
-        </div>
+        </>
       )}
     </div>
   );

@@ -1,17 +1,20 @@
-version: "3.9"
+version: "3.8"
 
 services:
-  hardhat:
+  hardhat-node:
     build:
       context: .
       dockerfile: Dockerfile.backend
+    container_name: dao-hardhat
     ports:
       - "8545:8545"
 
   frontend:
     build:
       context: ./frontend
+      dockerfile: Dockerfile
+    container_name: dao-frontend
     ports:
       - "3000:3000"
     depends_on:
-      - hardhat
+      - hardhat-node
