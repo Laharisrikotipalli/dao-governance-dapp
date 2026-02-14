@@ -3,8 +3,15 @@
 A full-stack decentralized governance system built using Solidity, Hardhat, and Next.js.
 
 ---
+##  Architecture Diagram
 
-#  Quick Start (Docker - One Command)
+<<<<<<< HEAD
+=======
+![DAO Governance Architecture](docs/architecture.png)
+
+---
+
+ Quick Start (Docker - One Command)
 
 ```bash
 docker-compose up --build
@@ -111,7 +118,10 @@ RPC_URL=http://localhost:8545
 
 ---
 
+<<<<<<< HEAD
 #  Governance Flow
+=======
+# Governance Flow
 
 1. Delegate voting power
 2. Create proposal
