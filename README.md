@@ -3,15 +3,14 @@
 A full-stack decentralized governance system built using Solidity, Hardhat, and Next.js.
 
 ---
+
 ##  Architecture Diagram
 
-<<<<<<< HEAD
-=======
 ![DAO Governance Architecture](docs/architecture.png)
 
 ---
 
- Quick Start (Docker - One Command)
+#  Quick Start (Docker - One Command)
 
 ```bash
 docker-compose up --build
@@ -102,6 +101,8 @@ dao-governance-dapp/
 ├── hardhat.config.js
 ├── package.json
 ├── .env.example
+├── docs/
+│   └── architecture.png
 └── README.md
 ```
 
@@ -118,19 +119,16 @@ RPC_URL=http://localhost:8545
 
 ---
 
-<<<<<<< HEAD
 #  Governance Flow
-=======
-# Governance Flow
 
-1. Delegate voting power
-2. Create proposal
-3. Wait voting delay
-4. Vote
-5. Wait voting period
-6. Queue proposal
-7. Wait timelock delay
-8. Execute proposal
+1. Delegate voting power  
+2. Create proposal  
+3. Wait voting delay  
+4. Vote  
+5. Wait voting period  
+6. Queue proposal  
+7. Wait timelock delay  
+8. Execute proposal  
 
 ---
 
@@ -147,4 +145,6 @@ Currency Symbol: ETH
 #  Author
 
 Lahari Sri Kotipalli  
-GitHub: https://github.com/Laharisrikotipalli
+GitHub: https://github.com/Laharisrikotipalli  
+
+
